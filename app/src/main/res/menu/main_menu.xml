@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/item1"
+        android:title="Set difficulty" >
+        <menu>
+            <item android:id="@+id/item11" android:title="Baby"></item>
+            <item android:id="@+id/item12" android:title="Child"></item>
+            <item android:id="@+id/item13" android:title="Rookie"></item>
+            <item android:id="@+id/item14" android:title="Expert"></item>
+            <item android:id="@+id/item15" android:title="Master"></item>
+        </menu>
+    </item>
+    <item android:id="@+id/item2"
+        android:title="Select hero" >
+        <menu>
+            <item android:id="@+id/item21" android:title="Elsa"></item>
+            <item android:id="@+id/item22" android:title="Bamse"></item>
+        </menu>
+    </item>
+
+
+</menu>
