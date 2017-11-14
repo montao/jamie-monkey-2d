@@ -14,6 +14,10 @@ android:
     - android-26
 
     # Additional components
+    
+before_install:
+ - chmod +x gradlew
+
 
 jdk: oraclejdk8
 os:
