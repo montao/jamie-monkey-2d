@@ -1,3 +1,7 @@
+language: android
+jdk: oraclejdk8
+sudo: false
+
 android:
   components:
     - tools
