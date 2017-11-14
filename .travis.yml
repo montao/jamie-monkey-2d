@@ -3,9 +3,3 @@ android:
     - tools
     - platform-tools
     - tools
-
-    # The BuildTools version that is used by your project
-    - build-tools-25.0.0
-
-    # The SDK version used to compile your project
-    - android-25
