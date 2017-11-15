@@ -2,12 +2,6 @@ sudo: false
 
 language: android
 
-before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
 before_install:
  - chmod +x gradlew
  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
@@ -20,16 +14,9 @@ android:
     - platform-tools
     - extra-android-m2repository
     - extra-google-android-support
-    - android-24
-    - android-22
-    - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-22
-    # The SDK version used to compile your project
     - android-26
-
-    # Additional components
 
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
