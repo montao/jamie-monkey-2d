@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -28,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         cg = new CatchGame(this, 5, "Elsa");
         setContentView(cg);
+        cg.setBackground(getResources().getDrawable(R.mipmap.forest));
+
     }
 
     @Override
@@ -39,12 +42,12 @@ public class MainActivity extends ActionBarActivity {
 
     // method called when top right menu is tapped
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         int difficulty = cg.NBRSTEPS;
         String name = cg.heroName;
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.item11:
                 cg = new CatchGame(this, 3, name);
                 setContentView(cg);
@@ -81,7 +84,6 @@ public class MainActivity extends ActionBarActivity {
 
 
 }
-
 
 
 class CatchGame extends View {
@@ -124,8 +126,8 @@ class CatchGame extends View {
             resourceIdFalling = R.mipmap.falling_object_bamse;
             resourceIdHero = R.mipmap.hero_bamse;
         }
-        ball = BitmapFactory.decodeResource(getResources(),resourceIdFalling); //load a ball image
-        hero = BitmapFactory.decodeResource(getResources(),resourceIdHero); //load a hero image
+        ball = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a ball image
+        hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
         ballW = ball.getWidth();
         ballH = ball.getHeight();
     }
@@ -133,24 +135,24 @@ class CatchGame extends View {
     // set coordinates, etc.
     void initialize() {
         if (!gameOver) { // run only once, when the game is first started
-            int maxOffset = (NBRSTEPS-1)/2;
+            int maxOffset = (NBRSTEPS - 1) / 2;
             for (int i = 0; i < x.length; i++) {
-                int origin = (int) (screenW /2) + xsteps *(i-maxOffset);
-                x[i] = origin - (ballW/2);
+                int origin = (int) (screenW / 2) + xsteps * (i - maxOffset);
+                x[i] = origin - (ballW / 2);
                 hero_positions[i] = origin - hero.getWidth();
             }
             int heroWidth = hero.getWidth();
             int heroHeight = hero.getHeight();
 
             hero = Bitmap.createScaledBitmap(hero, heroWidth * 2, heroHeight * 2, true);
-            heroYCoord = screenH - 2*heroHeight; // bottom of screen
+            heroYCoord = screenH - 2 * heroHeight; // bottom of screen
 
         }
         for (int i = 0; i < y.length; i++) {
             y[i] = -random.nextInt(1000); // place items randomly in vertical direction
         }
 
-        offset = (NBRSTEPS-1)/2; // place hero at centre of the screen
+        offset = (NBRSTEPS - 1) / 2; // place hero at centre of the screen
         heroXCoord = hero_positions[offset];
 
         // initialize or reset global attributes
@@ -162,11 +164,11 @@ class CatchGame extends View {
 
     // method called when the screen opens
     @Override
-    public void onSizeChanged (int w, int h, int oldw, int oldh) {
+    public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         screenW = w;
         screenH = h;
-        xsteps = (int)(w/NBRSTEPS);
+        xsteps = (int) (w / NBRSTEPS);
         initialize();
     }
 
@@ -190,7 +192,7 @@ class CatchGame extends View {
 
         int heroHeight = hero.getHeight();
         int heroWidth = hero.getWidth();
-        int heroCentre = heroXCoord + heroWidth/2;
+        int heroCentre = heroXCoord + heroWidth / 2;
 
         Context context = this.getContext();
 
@@ -222,7 +224,7 @@ class CatchGame extends View {
 
             }
             // if the hero catches a falling object
-            if (x[i] < heroCentre && x[i]+ballW > heroCentre &&
+            if (x[i] < heroCentre && x[i] + ballW > heroCentre &&
                     y[i] > screenH - ballH - heroHeight) {
 
                 y[i] = -random.nextInt(1000); // reset to new vertical position
@@ -257,7 +259,7 @@ class CatchGame extends View {
 
     // event listener for when the user touches the screen
     @Override
-    public boolean onTouchEvent( MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         if (paused) {
             paused = false;
         }
@@ -266,8 +268,8 @@ class CatchGame extends View {
             return true; // do nothing
         }
         int coordX = (int) event.getX();
-        int xCentre = (int) ((screenW /2) - (hero.getWidth()/2));
-        int maxOffset = hero_positions.length-1; // can't move outside right edge of screen
+        int xCentre = (int) ((screenW / 2) - (hero.getWidth() / 2));
+        int maxOffset = hero_positions.length - 1; // can't move outside right edge of screen
         int minOffset = 0; // ditto left edge of screen
         if (coordX < xCentre && offset > minOffset) { // touch event left of the centre of screen
             offset--; // move hero to the left
