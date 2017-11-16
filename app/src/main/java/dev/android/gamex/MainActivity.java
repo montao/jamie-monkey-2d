@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cg = new CatchGame(this, 5, "Elsa");
+        cg = new CatchGame(this, 5, "Jamie");
         setContentView(cg);
-        cg.setBackground(getResources().getDrawable(R.mipmap.forest));
+        cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
 
     }
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(cg);
                 return true;
             case R.id.item21:
-                cg = new CatchGame(this, difficulty, "Elsa");
+                cg = new CatchGame(this, difficulty, "Jamie");
                 setContentView(cg);
                 return true;
             case R.id.item22:
@@ -117,9 +117,9 @@ class CatchGame extends View {
         hero_positions = new int[NBRSTEPS];
         int resourceIdFalling = 0;
         int resourceIdHero = 0;
-        if (heroName.equals("Elsa")) {
+        if (heroName.equals("Jamie")) {
             resourceIdFalling = R.mipmap.falling_object;
-            resourceIdHero = R.mipmap.hero;
+            resourceIdHero = R.mipmap.jamie;
         }
         if (heroName.equals("Bamse")) {
             resourceIdFalling = R.mipmap.falling_object_bamse;
