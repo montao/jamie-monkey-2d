@@ -3,4 +3,7 @@
 # gamex
 Simple (and stupid) Android26 game.
 
-Instructions: Build and run it. If Travis can then so can you. 
+Instructions: Get the code and play with it. Or just use the pre-compiled apk file.  
+
+![](https://raw.githubusercontent.com/montao/gamex/master/transparent.png)
+
