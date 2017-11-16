@@ -4,12 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     CatchGame cg;
 
     // start app
@@ -137,7 +136,7 @@ class CatchGame extends View {
         if (!gameOver) { // run only once, when the game is first started
             int maxOffset = (NBRSTEPS - 1) / 2;
             for (int i = 0; i < x.length; i++) {
-                int origin = (int) (screenW / 2) + xsteps * (i - maxOffset);
+                int origin = (screenW / 2) + xsteps * (i - maxOffset);
                 x[i] = origin - (ballW / 2);
                 hero_positions[i] = origin - hero.getWidth();
             }
@@ -168,7 +167,7 @@ class CatchGame extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         screenW = w;
         screenH = h;
-        xsteps = (int) (w / NBRSTEPS);
+        xsteps = w / NBRSTEPS;
         initialize();
     }
 
@@ -218,9 +217,9 @@ class CatchGame extends View {
                         toastDisplayed = true;
                     }
                 }, 3000);
-                Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
+                //Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
                 // Vibrate for 3000 milliseconds
-                v.vibrate(3000);
+                //v.vibrate(3000);
 
             }
             // if the hero catches a falling object
@@ -235,7 +234,8 @@ class CatchGame extends View {
 
             TextView textView = new TextView(context);
             textView.setVisibility(View.VISIBLE);
-            textView.setText("Score: " + score);
+            String str = "Score: " + score;
+            textView.setText(str);
             layout.addView(textView);
 
             layout.measure(canvas.getWidth(), canvas.getHeight());
@@ -268,7 +268,7 @@ class CatchGame extends View {
             return true; // do nothing
         }
         int coordX = (int) event.getX();
-        int xCentre = (int) ((screenW / 2) - (hero.getWidth() / 2));
+        int xCentre = (screenW / 2) - (hero.getWidth() / 2);
         int maxOffset = hero_positions.length - 1; // can't move outside right edge of screen
         int minOffset = 0; // ditto left edge of screen
         if (coordX < xCentre && offset > minOffset) { // touch event left of the centre of screen
