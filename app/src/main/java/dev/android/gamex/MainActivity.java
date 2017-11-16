@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         cg = new CatchGame(this, 5, "Jamie");
         setContentView(cg);
-        cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
+        cg.setBackground(getResources().getDrawable(R.mipmap.space));
 
     }
 
@@ -119,7 +119,7 @@ class CatchGame extends View {
         int resourceIdHero = 0;
         if (heroName.equals("Jamie")) {
             resourceIdFalling = R.mipmap.falling_object;
-            resourceIdHero = R.mipmap.jamie;
+            resourceIdHero = R.mipmap.ufo;
         }
         if (heroName.equals("Bamse")) {
             resourceIdFalling = R.mipmap.falling_object_bamse;
