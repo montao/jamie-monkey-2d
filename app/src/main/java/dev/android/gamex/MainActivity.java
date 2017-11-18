@@ -4,16 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,16 +22,60 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     CatchGame cg;
+    public TextView textView;
 
     // start app
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cg = new CatchGame(this, 5, "Jamie");
-        setContentView(cg);
-        cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
+        LinearLayout mainLayout = new LinearLayout(this);
+        mainLayout.setOrientation(LinearLayout.VERTICAL);
 
+        LinearLayout menuLayout = new LinearLayout(this);
+        menuLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        textView = new TextView(this);
+        textView.setVisibility(View.VISIBLE);
+        String str = "Score: 0";
+        textView.setText(str);
+        menuLayout.addView(textView);
+
+        Button button = new Button(this);
+        button.setText("Pause");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePausePlay();
+            }
+        });
+        menuLayout.addView(button);
+        mainLayout.addView(menuLayout);
+
+        cg = new CatchGame(this, 5, "Jamie", onScoreListener);
+        cg.setBackground(getResources().getDrawable(R.mipmap.background));
+        mainLayout.addView(cg);
+
+        setContentView(mainLayout);
     }
+
+    private void togglePausePlay() {
+        if (cg.paused) {
+            // play
+            Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
+        } else {
+            // pause
+            Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
+        }
+
+        cg.paused = !cg.paused;
+    }
+
+    private OnScoreListener onScoreListener = new OnScoreListener() {
+        @Override
+        public void onScore(int score) {
+            textView.setText("Score: " + score);
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,33 +93,33 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.item11:
-                cg = new CatchGame(this, 3, name);
+                cg = new CatchGame(this, 3, name, onScoreListener);
                 setContentView(cg);
                 return true;
             case R.id.item12:
-                cg = new CatchGame(this, 5, name);
+                cg = new CatchGame(this, 5, name, onScoreListener);
                 setContentView(cg);
                 return true;
             case R.id.item13:
-                cg = new CatchGame(this, 7, name);
+                cg = new CatchGame(this, 7, name, onScoreListener);
                 setContentView(cg);
                 return true;
             case R.id.item14:
-                cg = new CatchGame(this, 9, name);
+                cg = new CatchGame(this, 9, name, onScoreListener);
                 setContentView(cg);
                 return true;
             case R.id.item15:
-                cg = new CatchGame(this, 11, name);
+                cg = new CatchGame(this, 11, name, onScoreListener);
                 setContentView(cg);
                 return true;
             case R.id.item21:
-                cg = new CatchGame(this, difficulty, "Jamie");
-                cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
+                cg = new CatchGame(this, difficulty, "Jamie", onScoreListener);
+                cg.setBackground(getResources().getDrawable(R.mipmap.background));
 
                 setContentView(cg);
                 return true;
             case R.id.item22:
-                cg = new CatchGame(this, difficulty, "Spaceship");
+                cg = new CatchGame(this, difficulty, "Spaceship", onScoreListener);
                 cg.setBackground(getResources().getDrawable(R.mipmap.space));
 
                 setContentView(cg);
@@ -89,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+interface OnScoreListener {
+    void onScore(int score);
+}
 
 class CatchGame extends View {
     int NBRSTEPS; // number of discrete positions in the x-dimension; must be uneven
@@ -112,11 +159,15 @@ class CatchGame extends View {
     boolean toastDisplayed;
     boolean paused = false;
 
+    OnScoreListener onScoreListener;
+
     // constructor, load images and get sizes
-    public CatchGame(Context context, int difficulty, String name) {
+    public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener) {
         super(context);
         NBRSTEPS = difficulty;
         heroName = name;
+        this.onScoreListener = onScoreListener;
+
         x = new int[NBRSTEPS];
         y = new int[NBRSTEPS];
         hero_positions = new int[NBRSTEPS];
@@ -233,20 +284,9 @@ class CatchGame extends View {
 
                 y[i] = -random.nextInt(1000); // reset to new vertical position
                 score += 1;
+                onScoreListener.onScore(score);
             }
 
-            LinearLayout layout = new LinearLayout(this.getContext());
-
-            TextView textView = new TextView(context);
-            textView.setVisibility(View.VISIBLE);
-            String str = "Score: " + score;
-            textView.setText(str);
-            layout.addView(textView);
-
-            layout.measure(canvas.getWidth(), canvas.getHeight());
-            layout.layout(0, 0, canvas.getWidth(), canvas.getHeight());
-
-            layout.draw(canvas);
 
         }
 
