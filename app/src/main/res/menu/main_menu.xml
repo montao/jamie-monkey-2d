@@ -14,8 +14,8 @@
     <item android:id="@+id/item2"
         android:title="Select hero" >
         <menu>
-            <item android:id="@+id/item21" android:title="Elsa"></item>
-            <item android:id="@+id/item22" android:title="Bamse"></item>
+            <item android:id="@+id/item21" android:title="Jamie"></item>
+            <item android:id="@+id/item22" android:title="Spaceship"></item>
         </menu>
     </item>
 

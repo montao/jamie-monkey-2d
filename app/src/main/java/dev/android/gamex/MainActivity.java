@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         cg = new CatchGame(this, 5, "Jamie");
         setContentView(cg);
-        cg.setBackground(getResources().getDrawable(R.mipmap.space));
+        cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
 
     }
 
@@ -69,10 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.item21:
                 cg = new CatchGame(this, difficulty, "Jamie");
+                cg.setBackground(getResources().getDrawable(R.mipmap.jungle));
+
                 setContentView(cg);
                 return true;
             case R.id.item22:
-                cg = new CatchGame(this, difficulty, "Bamse");
+                cg = new CatchGame(this, difficulty, "Spaceship");
+                cg.setBackground(getResources().getDrawable(R.mipmap.space));
+
                 setContentView(cg);
                 return true;
             default:
@@ -118,12 +123,12 @@ class CatchGame extends View {
         int resourceIdFalling = 0;
         int resourceIdHero = 0;
         if (heroName.equals("Jamie")) {
+            resourceIdFalling = R.mipmap.falling_object2;
+            resourceIdHero = R.mipmap.jamie;
+        }
+        if (heroName.equals("Spaceship")) {
             resourceIdFalling = R.mipmap.falling_object;
             resourceIdHero = R.mipmap.ufo;
-        }
-        if (heroName.equals("Bamse")) {
-            resourceIdFalling = R.mipmap.falling_object_bamse;
-            resourceIdHero = R.mipmap.hero_bamse;
         }
         ball = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a ball image
         hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
