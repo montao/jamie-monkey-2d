@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,16 +55,21 @@ public class MainActivity extends AppCompatActivity {
         cg = new CatchGame(this, 5, "Jamie", onScoreListener);
         cg.setBackground(getResources().getDrawable(R.mipmap.background));
         mainLayout.addView(cg);
-
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+      //  getActionBar().hide();
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(mainLayout);
     }
 
     private void togglePausePlay() {
         if (cg.paused) {
             // play
+            getSupportActionBar().hide();
             Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
         } else {
             // pause
+            getSupportActionBar().show();
             Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
         }
 
