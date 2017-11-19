@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
@@ -24,12 +25,12 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     CatchGame cg;
     public TextView textView;
-
+public     LinearLayout mainLayout;
     // start app
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout mainLayout = new LinearLayout(this);
+        mainLayout = new LinearLayout(this);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
 
         LinearLayout menuLayout = new LinearLayout(this);
@@ -55,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         cg = new CatchGame(this, 5, "Jamie", onScoreListener);
         cg.setBackground(getResources().getDrawable(R.mipmap.background));
         mainLayout.addView(cg);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-      //  getActionBar().hide();
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
         setContentView(mainLayout);
@@ -101,34 +100,58 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item11:
                 cg = new CatchGame(this, 3, name, onScoreListener);
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item12:
                 cg = new CatchGame(this, 5, name, onScoreListener);
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item13:
                 cg = new CatchGame(this, 7, name, onScoreListener);
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item14:
                 cg = new CatchGame(this, 9, name, onScoreListener);
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item15:
                 cg = new CatchGame(this, 11, name, onScoreListener);
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item21:
                 cg = new CatchGame(this, difficulty, "Jamie", onScoreListener);
-                cg.setBackground(getResources().getDrawable(R.mipmap.background));
-
                 setContentView(cg);
+                mainLayout.addView(cg);
+                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                setContentView(mainLayout);
                 return true;
             case R.id.item22:
                 cg = new CatchGame(this, difficulty, "Spaceship", onScoreListener);
-                cg.setBackground(getResources().getDrawable(R.mipmap.space));
-
                 setContentView(cg);
+                //mainLayout.addView(cg);
+                //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+                getSupportActionBar().hide();
+                //setContentView(mainLayout);
                 return true;
             default:
                 cg.paused = true;
@@ -155,7 +178,7 @@ class CatchGame extends View {
     int ballW; // width of each falling object
     int ballH; // height of ditto
     float dY; //vertical speed
-    Bitmap ball, hero;
+    Bitmap falling, hero;
     int heroXCoord;
     int heroYCoord;
     int xsteps;
@@ -182,17 +205,22 @@ class CatchGame extends View {
         if (heroName.equals("Jamie")) {
             resourceIdFalling = R.mipmap.falling_object2;
             resourceIdHero = R.mipmap.jamie;
+            setBackground(getResources().getDrawable(R.mipmap.background));
         }
         if (heroName.equals("Spaceship")) {
             resourceIdFalling = R.mipmap.falling_object;
             resourceIdHero = R.mipmap.ufo;
+            setBackground(getResources().getDrawable(R.mipmap.space));
         }
-        ball = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a ball image
+        falling = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a falling image
         hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
-        ballW = ball.getWidth();
-        ballH = ball.getHeight();
+        ballW = falling.getWidth();
+        ballH = falling.getHeight();
     }
-
+    public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener, Drawable background) {
+        this(context, difficulty, name, onScoreListener);
+        this.setBackground(background);
+    }
     // set coordinates, etc.
     void initialize() {
         if (!gameOver) { // run only once, when the game is first started
@@ -299,7 +327,7 @@ class CatchGame extends View {
         canvas.save(); //Save the position of the canvas.
 
         for (int i = 0; i < y.length; i++) {
-            canvas.drawBitmap(ball, x[i], y[i], null); //Draw the ball on the canvas.
+            canvas.drawBitmap(falling, x[i], y[i], null); //Draw the falling on the canvas.
         }
         canvas.drawBitmap(hero, heroXCoord, heroYCoord, null); //Draw the hero on the canvas.
 
