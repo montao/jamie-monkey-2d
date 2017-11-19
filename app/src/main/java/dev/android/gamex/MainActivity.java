@@ -64,11 +64,11 @@ public     LinearLayout mainLayout;
     private void togglePausePlay() {
         if (cg.paused) {
             // play
-            getSupportActionBar().hide();
+          //  getSupportActionBar().hide();
             Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
         } else {
             // pause
-            getSupportActionBar().show();
+        //    getSupportActionBar().show();
             Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
         }
 
