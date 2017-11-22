@@ -25,7 +25,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     CatchGame cg;
     public TextView textView;
-public     LinearLayout mainLayout;
+    public LinearLayout mainLayout;
+
     // start app
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,11 +65,11 @@ public     LinearLayout mainLayout;
     private void togglePausePlay() {
         if (cg.paused) {
             // play
-          //  getSupportActionBar().hide();
+            //  getSupportActionBar().hide();
             Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
         } else {
             // pause
-        //    getSupportActionBar().show();
+            //    getSupportActionBar().show();
             Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
         }
 
@@ -217,10 +218,12 @@ class CatchGame extends View {
         ballW = falling.getWidth();
         ballH = falling.getHeight();
     }
+
     public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener, Drawable background) {
         this(context, difficulty, name, onScoreListener);
         this.setBackground(background);
     }
+
     // set coordinates, etc.
     void initialize() {
         if (!gameOver) { // run only once, when the game is first started
