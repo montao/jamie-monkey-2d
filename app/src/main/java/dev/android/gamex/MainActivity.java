@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mainLayout.addView(menuLayout);
 
         cg = new CatchGame(this, 5, "Jamie", onScoreListener);
-        cg.setBackground(getResources().getDrawable(R.mipmap.background));
+        cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
         mainLayout.addView(cg);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
 }
 
 interface OnScoreListener {
@@ -205,7 +204,7 @@ class CatchGame extends View {
         int resourceIdHero = 0;
         if (heroName.equals("Jamie")) {
             resourceIdFalling = R.mipmap.falling_object2;
-            resourceIdHero = R.mipmap.jamie;
+            resourceIdHero = R.drawable.left_side_hdpi;
             setBackground(getResources().getDrawable(R.mipmap.background));
         }
         if (heroName.equals("Spaceship")) {
