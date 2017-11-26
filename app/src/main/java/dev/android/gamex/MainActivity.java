@@ -178,7 +178,7 @@ class CatchGame extends View {
     int ballW; // width of each falling object
     int ballH; // height of ditto
     float dY; //vertical speed
-    Bitmap falling, hero;
+    Bitmap falling, hero, jamie2, jamieleft, jamieright;
     int heroXCoord;
     int heroYCoord;
     int xsteps;
@@ -214,6 +214,9 @@ class CatchGame extends View {
         }
         falling = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a falling image
         hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
+        jamieleft = BitmapFactory.decodeResource(getResources(), R.drawable.left_side_hdpi); //load a hero image
+        jamieright = BitmapFactory.decodeResource(getResources(), R.drawable.right_side_hdpi); //load a hero image
+
         ballW = falling.getWidth();
         ballH = falling.getHeight();
     }
@@ -236,6 +239,10 @@ class CatchGame extends View {
             int heroHeight = hero.getHeight();
 
             hero = Bitmap.createScaledBitmap(hero, heroWidth * 2, heroHeight * 2, true);
+            hero = Bitmap.createScaledBitmap(hero, heroWidth * 2, heroHeight * 2, true);
+            jamieleft = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth()* 2, jamieright.getWidth() * 2, true);
+            jamieright = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth()* 2, jamieright.getWidth() * 2, true);
+
             heroYCoord = screenH - 2 * heroHeight; // bottom of screen
 
         }
@@ -267,7 +274,6 @@ class CatchGame extends View {
     void restart(Canvas canvas) {
 
         toastDisplayed = true;
-
         initialize();
         draw(canvas);
     }
@@ -352,11 +358,21 @@ class CatchGame extends View {
         int xCentre = (screenW / 2) - (hero.getWidth() / 2);
         int maxOffset = hero_positions.length - 1; // can't move outside right edge of screen
         int minOffset = 0; // ditto left edge of screen
+
         if (coordX < xCentre && offset > minOffset) { // touch event left of the centre of screen
             offset--; // move hero to the left
+
+            if(coordX < heroXCoord)// + heroWidth / 2)
+                hero = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth() , jamieleft.getHeight() , true);
+
         }
         if (coordX > xCentre && offset < maxOffset) { // touch event right of the centre of screen
             offset++; // move hero to the right
+//            resourceIdHero = R.drawable.right_side_hdpi;
+            //if(coordX < heroXCoord)// + heroWidth / 2)
+            if(coordX > heroXCoord)
+                hero  = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth() , jamieright.getHeight() , true);
+
         }
         heroXCoord = hero_positions[offset];
 
