@@ -329,7 +329,6 @@ class CatchGame extends View {
                 onScoreListener.onScore(score);
             }
 
-
         }
 
         canvas.save(); //Save the position of the canvas.
@@ -368,8 +367,7 @@ class CatchGame extends View {
         }
         if (coordX > xCentre && offset < maxOffset) { // touch event right of the centre of screen
             offset++; // move hero to the right
-//            resourceIdHero = R.drawable.right_side_hdpi;
-            //if(coordX < heroXCoord)// + heroWidth / 2)
+
             if(coordX > heroXCoord)
                 hero  = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth() , jamieright.getHeight() , true);
 
