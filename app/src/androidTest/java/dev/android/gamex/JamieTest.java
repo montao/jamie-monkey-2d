@@ -17,6 +17,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,12 +25,17 @@ public class JamieTest {
 
     private static final String FAKE_STRING = "HELLO WORLD";
 
-
+    private OnScoreListener onScoreListener = new OnScoreListener() {
+        @Override
+        public void onScore(int score) {
+        }
+    };
 
     @Test
     public void useAppContext() throws Exception {
-        // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("dev.android.gamex", appContext.getPackageName());
+        CatchGame cg = new CatchGame(appContext, 5, "Jamie", onScoreListener);
+        assertTrue(! cg.gameOver);
     }
 }
