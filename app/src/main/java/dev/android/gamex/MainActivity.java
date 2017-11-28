@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     CatchGame cg;
     public TextView textView;
     public LinearLayout mainLayout;
-
+    String[] spinnerValue = {"Rookie", "Advanced", "Expert", "Master"};
     // start app
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         menuLayout.addView(button);
+
+
+        Spinner spinner2 =new Spinner(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
+        spinner2.setAdapter(adapter);
+        menuLayout.addView(spinner2);
+
         mainLayout.addView(menuLayout);
 
         cg = new CatchGame(this, 5, "Jamie", onScoreListener);
