@@ -187,7 +187,7 @@
         int ballW; // width of each falling object
         int ballH; // height of ditto
         float dY; //vertical speed
-        Bitmap falling, hero, jamie2, jamieleft, jamieright;
+        Bitmap falling, hero, jamie2, jamieleft, jamieright, falling2;
         int heroXCoord;
         int heroYCoord;
         int xsteps;
@@ -210,9 +210,11 @@
             y = new int[NBRSTEPS];
             hero_positions = new int[NBRSTEPS];
             int resourceIdFalling = 0;
+            int resourceIdFalling2 = 0;
             int resourceIdHero = 0;
             if (heroName.equals("Jamie")) {
                 resourceIdFalling = R.mipmap.falling_object2;
+                resourceIdFalling2 = R.drawable.coconut_hdpi;
                 resourceIdHero = R.drawable.left_side_hdpi;
                 setBackground(getResources().getDrawable(R.mipmap.background));
             }
@@ -222,6 +224,10 @@
                 setBackground(getResources().getDrawable(R.mipmap.space));
             }
             falling = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a falling image
+
+            falling2 = BitmapFactory.decodeResource(getResources(), resourceIdFalling2); //load a falling image
+
+
             hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
             jamieleft = BitmapFactory.decodeResource(getResources(), R.drawable.left_side_hdpi); //load a hero image
             jamieright = BitmapFactory.decodeResource(getResources(), R.drawable.right_side_hdpi); //load a hero image
@@ -343,7 +349,10 @@
             canvas.save(); //Save the position of the canvas.
 
             for (int i = 0; i < y.length; i++) {
-                canvas.drawBitmap(falling, x[i], y[i], null); //Draw the falling on the canvas.
+                if (i % 2 == 0)
+                    canvas.drawBitmap(falling2, x[i], y[i], null); //Draw the falling on the canvas.
+                else
+                    canvas.drawBitmap(falling, x[i], y[i], null); //Draw the falling on the canvas.
             }
             canvas.drawBitmap(hero, heroXCoord, heroYCoord, null); //Draw the hero on the canvas.
 
