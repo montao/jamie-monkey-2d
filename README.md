@@ -3,7 +3,7 @@
 # gamex
 Simple Android 2D game. Instructions: Just play with it. Or use the [pre-compiled apk file](https://github.com/montao/gamex/raw/master/jamie-release.apk).  
 
-![](https://raw.githubusercontent.com/montao/gamex/master/jamie2d.png)
+![](https://raw.githubusercontent.com/montao/gamex/master/jamie2d-Untitled.png)
 
 ![](https://raw.githubusercontent.com/montao/gamex/master/rymdspel.png)
 
