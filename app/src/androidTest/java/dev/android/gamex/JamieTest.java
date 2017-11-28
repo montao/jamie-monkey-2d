@@ -44,11 +44,13 @@ public class JamieTest {
         cg.initialize();
         assertTrue(! cg.gameOver);
         assertTrue(! cg.paused);
+
         try {
             runOnUiThread(new Runnable() {
                 public void run() {
                     cg.onDraw(new Canvas());
                     assertTrue(! cg.gameOver);
+                    cg.restart(new Canvas());
                 }
             });
         } catch (Throwable t) {}
