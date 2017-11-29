@@ -1,38 +1,47 @@
-    package dev.android.gamex;
+package dev.android.gamex;
 
-    import android.content.Context;
-    import android.graphics.Bitmap;
-    import android.graphics.BitmapFactory;
-    import android.graphics.Canvas;
-    import android.graphics.Color;
-    import android.graphics.drawable.Drawable;
-    import android.os.Bundle;
-    import android.os.Handler;
-    import android.support.v4.view.MotionEventCompat;
-    import android.support.v7.app.AppCompatActivity;
-    import android.view.Menu;
-    import android.view.MenuItem;
-    import android.view.MotionEvent;
-    import android.view.View;
-    import android.view.Window;
-    import android.widget.ArrayAdapter;
-    import android.widget.Button;
-    import android.widget.LinearLayout;
-    import android.widget.Spinner;
-    import android.widget.TextView;
-    import android.widget.Toast;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-    import java.util.Random;
+import java.util.Random;
 
-    public class MainActivity extends AppCompatActivity {
-        CatchGame cg;
-        public TextView textView;
-        public LinearLayout mainLayout;
-        String[] spinnerValue = {"Rookie", "Advanced", "Expert", "Master"};
-        // start app
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        Log.d("myTag", "This is my message" + parent.getItemAtPosition(pos));
+        String name = "Jamie";
+        String str = parent.getItemAtPosition(pos).toString();
+        if (str.equals("Rookie")) {
+            cg = new CatchGame(this, 3, name, onScoreListener);
+            setContentView(cg);
+            getSupportActionBar().hide();
+            setContentView(mainLayout);
+            Log.d("game", "Srtaed Rookie game");
+
+        } else if (str.equals("Advanced")) {
             mainLayout = new LinearLayout(this);
             mainLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -41,7 +50,7 @@
 
             textView = new TextView(this);
             textView.setVisibility(View.VISIBLE);
-            String str = "Score: 0";
+            str = "Score: 0";
             textView.setText(str);
             menuLayout.addView(textView);
 
@@ -56,7 +65,8 @@
             menuLayout.addView(button);
 
 
-            Spinner spinner2 =new Spinner(this);
+            Spinner spinner2 = new Spinner(this);
+            spinner2.setOnItemSelectedListener(this);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
             spinner2.setAdapter(adapter);
             menuLayout.addView(spinner2);
@@ -66,110 +76,90 @@
             cg = new CatchGame(this, 5, "Jamie", onScoreListener);
             cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
             mainLayout.addView(cg);
-            getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+//                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+            getSupportActionBar().hide();
+            setContentView(mainLayout);
+            Log.d("game", "Srtaed Advanced game");
+        } else if (str.equals("Expert")) {
+            cg = new CatchGame(this, 7, name, onScoreListener);
+            setContentView(cg);
             getSupportActionBar().hide();
             setContentView(mainLayout);
         }
-
-        private void togglePausePlay() {
-            if (cg.paused) {
-                // play
-                //  getSupportActionBar().hide();
-                Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
-            } else {
-                // pause
-                //    getSupportActionBar().show();
-                Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
-            }
-
-            cg.paused = !cg.paused;
-        }
-
-        private OnScoreListener onScoreListener = new OnScoreListener() {
-            @Override
-            public void onScore(int score) {
-                textView.setText("Score: " + score);
-            }
-        };
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.main_menu, menu);
-            return true;
-        }
-
-        // method called when top right menu is tapped
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            super.onOptionsItemSelected(item);
-            int difficulty = cg.NBRSTEPS;
-            String name = cg.heroName;
-
-            switch (item.getItemId()) {
-                case R.id.item11:
-                    cg = new CatchGame(this, 3, name, onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item12:
-                    cg = new CatchGame(this, 5, name, onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item13:
-                    cg = new CatchGame(this, 7, name, onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item14:
-                    cg = new CatchGame(this, 9, name, onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item15:
-                    cg = new CatchGame(this, 11, name, onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item21:
-                    cg = new CatchGame(this, difficulty, "Jamie", onScoreListener);
-                    setContentView(cg);
-                    mainLayout.addView(cg);
-                    getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    setContentView(mainLayout);
-                    return true;
-                case R.id.item22:
-                    cg = new CatchGame(this, difficulty, "Spaceship", onScoreListener);
-                    setContentView(cg);
-                    //mainLayout.addView(cg);
-                    //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-                    getSupportActionBar().hide();
-                    //setContentView(mainLayout);
-                    return true;
-                default:
-                    cg.paused = true;
-                    return super.onOptionsItemSelected(item);
-            }
-        }
-
     }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
+    CatchGame cg;
+    public TextView textView;
+    public LinearLayout mainLayout;
+    String[] spinnerValue = {"Rookie", "Advanced", "Expert", "Master"};
+
+    // start app
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainLayout = new LinearLayout(this);
+        mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout menuLayout = new LinearLayout(this);
+        menuLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        textView = new TextView(this);
+        textView.setVisibility(View.VISIBLE);
+        String str = "Score: 0";
+        textView.setText(str);
+        menuLayout.addView(textView);
+
+        Button button = new Button(this);
+        button.setText("Pause");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePausePlay();
+            }
+        });
+        menuLayout.addView(button);
+
+
+        Spinner spinner2 = new Spinner(this);
+        spinner2.setOnItemSelectedListener(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
+        spinner2.setAdapter(adapter);
+        menuLayout.addView(spinner2);
+
+        mainLayout.addView(menuLayout);
+
+        cg = new CatchGame(this, 5, "Jamie", onScoreListener);
+        cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
+        mainLayout.addView(cg);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
+        setContentView(mainLayout);
+    }
+
+    private void togglePausePlay() {
+        if (cg.paused) {
+            // play
+            //  getSupportActionBar().hide();
+            Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
+        } else {
+            // pause
+            //    getSupportActionBar().show();
+            Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
+        }
+
+        cg.paused = !cg.paused;
+    }
+
+    private OnScoreListener onScoreListener = new OnScoreListener() {
+        @Override
+        public void onScore(int score) {
+            textView.setText("Score: " + score);
+        }
+    };
 
     interface OnScoreListener {
         void onScore(int score);
@@ -218,28 +208,19 @@
                 resourceIdHero = R.drawable.left_side_hdpi;
                 setBackground(getResources().getDrawable(R.mipmap.background));
             }
-            if (heroName.equals("Spaceship")) {
-                resourceIdFalling = R.mipmap.falling_object;
-                resourceIdHero = R.mipmap.ufo;
-                setBackground(getResources().getDrawable(R.mipmap.space));
-            }
             falling = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a falling image
-
             falling2 = BitmapFactory.decodeResource(getResources(), resourceIdFalling2); //load a falling image
-
-
             hero = BitmapFactory.decodeResource(getResources(), resourceIdHero); //load a hero image
             jamieleft = BitmapFactory.decodeResource(getResources(), R.drawable.left_side_hdpi); //load a hero image
             jamieright = BitmapFactory.decodeResource(getResources(), R.drawable.right_side_hdpi); //load a hero image
-
             ballW = falling.getWidth();
             ballH = falling.getHeight();
         }
 
-        public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener, Drawable background) {
-            this(context, difficulty, name, onScoreListener);
-            this.setBackground(background);
-        }
+   /* public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener, Drawable background) {
+        this(context, difficulty, name, onScoreListener);
+        this.setBackground(background);
+    }*/
 
         // set coordinates, etc.
         void initialize() {
@@ -255,8 +236,8 @@
 
                 hero = Bitmap.createScaledBitmap(hero, heroWidth * 2, heroHeight * 2, true);
                 hero = Bitmap.createScaledBitmap(hero, heroWidth * 2, heroHeight * 2, true);
-                jamieleft = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth()* 2, jamieright.getWidth() * 2, true);
-                jamieright = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth()* 2, jamieright.getWidth() * 2, true);
+                jamieleft = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth() * 2, jamieright.getWidth() * 2, true);
+                jamieright = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth() * 2, jamieright.getWidth() * 2, true);
 
                 heroYCoord = screenH - 2 * heroHeight; // bottom of screen
 
@@ -379,15 +360,15 @@
             if (coordX < xCentre && offset > minOffset) { // touch event left of the centre of screen
                 offset--; // move hero to the left
 
-                if(coordX < heroXCoord)// + heroWidth / 2)
-                    hero = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth() , jamieleft.getHeight() , true);
+                if (coordX < heroXCoord)// + heroWidth / 2)
+                    hero = Bitmap.createScaledBitmap(jamieleft, jamieleft.getWidth(), jamieleft.getHeight(), true);
 
             }
             if (coordX > xCentre && offset < maxOffset) { // touch event right of the centre of screen
                 offset++; // move hero to the right
 
-                if(coordX > heroXCoord)
-                    hero  = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth() , jamieright.getHeight() , true);
+                if (coordX > heroXCoord)
+                    hero = Bitmap.createScaledBitmap(jamieright, jamieright.getWidth(), jamieright.getHeight(), true);
 
             }
             heroXCoord = hero_positions[offset];
@@ -395,3 +376,4 @@
             return true;
         }
     }
+}
