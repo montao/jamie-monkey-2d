@@ -27,30 +27,28 @@ public class JamieTest {
 
     private static final String FAKE_STRING = "HELLO WORLD";
 
-    private OnScoreListener onScoreListener = new OnScoreListener() {
-        @Override
-        public void onScore(int score) {
-        }
-    };
-
     @Mock
     Canvas can;
 
+    //@Ignore
     @Test
     public void useAppContext() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("dev.android.gamex", appContext.getPackageName());
-        final CatchGame cg = new CatchGame(appContext, 5, "Jamie", onScoreListener);
-        cg.initialize();
-        assertTrue(! cg.gameOver);
-        assertTrue(! cg.paused);
+        //final
+        //mainActivity.cg = new MainActivity.CatchGame()
 
         try {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    cg.onDraw(new Canvas());
-                    assertTrue(! cg.gameOver);
-                    cg.restart(new Canvas());
+                    MainActivity mainActivity = new MainActivity();
+                    mainActivity.cg.initialize();
+                    assertTrue(! mainActivity.cg.gameOver);
+                    assertTrue(! mainActivity.cg.paused);
+
+                    mainActivity.cg.onDraw(new Canvas());
+                    assertTrue(! mainActivity.cg.gameOver);
+                    mainActivity.cg.restart(new Canvas());
                 }
             });
         } catch (Throwable t) {}

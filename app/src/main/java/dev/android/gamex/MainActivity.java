@@ -36,10 +36,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String str = parent.getItemAtPosition(pos).toString();
         if (str.equals("Rookie")) {
             cg = new CatchGame(this, 3, name, onScoreListener);
-            setContentView(cg);
+           // setContentView(cg);
+            mainLayout.addView(cg);
             getSupportActionBar().hide();
             setContentView(mainLayout);
-            Log.d("game", "Srtaed Rookie game");
+            Log.d("game", "Started Rookie game");
 
         } else if (str.equals("Advanced")) {
             mainLayout = new LinearLayout(this);
@@ -63,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             });
             menuLayout.addView(button);
-
-
             Spinner spinner2 = new Spinner(this);
             spinner2.setOnItemSelectedListener(this);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             getSupportActionBar().hide();
             setContentView(mainLayout);
-            Log.d("game", "Srtaed Advanced game");
+            Log.d("game", "Started Advanced game");
         } else if (str.equals("Expert")) {
             cg = new CatchGame(this, 7, name, onScoreListener);
             setContentView(cg);
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     CatchGame cg;
     public TextView textView;
     public LinearLayout mainLayout;
-    String[] spinnerValue = {"Rookie", "Advanced", "Expert", "Master"};
+    String[] spinnerValue = {"Difficulty", "Rookie", "Advanced", "Expert", "Master"};
 
     // start app
     @Override
@@ -122,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
         menuLayout.addView(button);
-
 
         Spinner spinner2 = new Spinner(this);
         spinner2.setOnItemSelectedListener(this);
