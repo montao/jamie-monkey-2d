@@ -38,7 +38,6 @@ public class JamieTest {
                     mainActivity.cg.initialize();
                     assertTrue(! mainActivity.cg.gameOver);
                     assertTrue(! mainActivity.cg.paused);
-
                     mainActivity.cg.onDraw(new Canvas());
                     assertTrue(! mainActivity.cg.gameOver);
                     mainActivity.cg.restart(new Canvas());

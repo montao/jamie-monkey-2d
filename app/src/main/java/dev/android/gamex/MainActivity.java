@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.d("game", "Started Advanced game");
         } else if (str.equals("Expert")) {
             cg = new CatchGame(this, 7, name, onScoreListener);
-            setContentView(cg);
+            //setContentView(cg);
+            mainLayout.addView(cg);
             getSupportActionBar().hide();
             setContentView(mainLayout);
         }
@@ -215,11 +216,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ballH = falling.getHeight();
         }
 
-   /* public CatchGame(Context context, int difficulty, String name, OnScoreListener onScoreListener, Drawable background) {
-        this(context, difficulty, name, onScoreListener);
-        this.setBackground(background);
-    }*/
-
         // set coordinates, etc.
         void initialize() {
             if (!gameOver) { // run only once, when the game is first started
@@ -266,7 +262,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // method called when the "game over" toast has finished displaying
         void restart(Canvas canvas) {
-
             toastDisplayed = true;
             initialize();
             draw(canvas);
@@ -334,7 +329,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     canvas.drawBitmap(falling, x[i], y[i], null); //Draw the falling on the canvas.
             }
             canvas.drawBitmap(hero, heroXCoord, heroYCoord, null); //Draw the hero on the canvas.
-
             canvas.restore();
             //Call the next frame.
             invalidate();
@@ -370,7 +364,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             }
             heroXCoord = hero_positions[offset];
-
             return true;
         }
     }
