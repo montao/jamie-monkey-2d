@@ -27,17 +27,10 @@ public class JamieTest {
 
     private static final String FAKE_STRING = "HELLO WORLD";
 
-    @Mock
-    Canvas can;
-
-    //@Ignore
     @Test
     public void useAppContext() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("dev.android.gamex", appContext.getPackageName());
-        //final
-        //mainActivity.cg = new MainActivity.CatchGame()
-
         try {
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -52,7 +45,5 @@ public class JamieTest {
                 }
             });
         } catch (Throwable t) {}
-       // assertTrue(! cg.paused);
-
     }
 }
