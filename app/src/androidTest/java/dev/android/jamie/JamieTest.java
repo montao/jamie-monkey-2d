@@ -24,7 +24,7 @@ public class JamieTest {
     @Test
     public void useAppContext() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
-        assertEquals("dev.android.gamex", appContext.getPackageName());
+        assertEquals("dev.android.jamie", appContext.getPackageName());
         try {
             runOnUiThread(new Runnable() {
                 public void run() {
