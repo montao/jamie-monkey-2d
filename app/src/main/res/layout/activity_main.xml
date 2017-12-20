@@ -34,7 +34,7 @@
         android:layout_height="wrap_content" />
 
 
-    <dev.android.gamex.CatchGame
+    <dev.android.jamie.CatchGame
         android:id="@+id/view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -1,17 +1,12 @@
-package dev.android.gamex;
+package dev.android.jamie;
 
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
-import android.widget.TextView;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
@@ -20,7 +15,6 @@ import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JamieTest {

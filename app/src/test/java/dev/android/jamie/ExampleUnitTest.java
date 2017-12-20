@@ -1,4 +1,4 @@
-package dev.android.gamex;
+package dev.android.jamie;
 
 import org.junit.Test;
 
