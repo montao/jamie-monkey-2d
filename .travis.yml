@@ -1,5 +1,5 @@
 language: android
-
+sudo: required
 jdk:
   - oraclejdk8
 
@@ -13,7 +13,7 @@ script:
 - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
 - "./gradlew connectedAndroidTest coveralls"
 
-sudo: false
+
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
