@@ -35,12 +35,42 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String name = "Jamie";
         String str = parent.getItemAtPosition(pos).toString();
         if (str.equals("Rookie")) {
-            cg = new CatchGame(this, 3, name, onScoreListener);
-           // setContentView(cg);
+            mainLayout = new LinearLayout(this);
+            mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout menuLayout = new LinearLayout(this);
+            menuLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            textView = new TextView(this);
+            textView.setVisibility(View.VISIBLE);
+            str = "Score: 0";
+            textView.setText(str);
+            menuLayout.addView(textView);
+
+            Button button = new Button(this);
+            button.setText("Pause");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    togglePausePlay();
+                }
+            });
+            menuLayout.addView(button);
+            Spinner spinner2 = new Spinner(this);
+            spinner2.setOnItemSelectedListener(this);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
+            spinner2.setAdapter(adapter);
+            menuLayout.addView(spinner2);
+
+            mainLayout.addView(menuLayout);
+
+            cg = new CatchGame(this, 3, "Jamie", onScoreListener);
+            cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
             mainLayout.addView(cg);
+//                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             getSupportActionBar().hide();
             setContentView(mainLayout);
-            Log.d("game", "Started Rookie game");
+            Log.d("game", "Started Advanced game");
 
         } else if (str.equals("Advanced")) {
             mainLayout = new LinearLayout(this);
@@ -80,11 +110,79 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             setContentView(mainLayout);
             Log.d("game", "Started Advanced game");
         } else if (str.equals("Expert")) {
-            cg = new CatchGame(this, 7, name, onScoreListener);
-            //setContentView(cg);
+            mainLayout = new LinearLayout(this);
+            mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout menuLayout = new LinearLayout(this);
+            menuLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            textView = new TextView(this);
+            textView.setVisibility(View.VISIBLE);
+            str = "Score: 0";
+            textView.setText(str);
+            menuLayout.addView(textView);
+
+            Button button = new Button(this);
+            button.setText("Pause");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    togglePausePlay();
+                }
+            });
+            menuLayout.addView(button);
+            Spinner spinner2 = new Spinner(this);
+            spinner2.setOnItemSelectedListener(this);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
+            spinner2.setAdapter(adapter);
+            menuLayout.addView(spinner2);
+
+            mainLayout.addView(menuLayout);
+
+            cg = new CatchGame(this, 7, "Jamie", onScoreListener);
+            cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
             mainLayout.addView(cg);
+//                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             getSupportActionBar().hide();
             setContentView(mainLayout);
+            Log.d("game", "Started Advanced game");
+        } else if (str.equals("Master")) {
+            mainLayout = new LinearLayout(this);
+            mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+            LinearLayout menuLayout = new LinearLayout(this);
+            menuLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            textView = new TextView(this);
+            textView.setVisibility(View.VISIBLE);
+            str = "Score: 0";
+            textView.setText(str);
+            menuLayout.addView(textView);
+
+            Button button = new Button(this);
+            button.setText("Pause");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    togglePausePlay();
+                }
+            });
+            menuLayout.addView(button);
+            Spinner spinner2 = new Spinner(this);
+            spinner2.setOnItemSelectedListener(this);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, spinnerValue);
+            spinner2.setAdapter(adapter);
+            menuLayout.addView(spinner2);
+
+            mainLayout.addView(menuLayout);
+
+            cg = new CatchGame(this, 9, "Jamie", onScoreListener);
+            cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
+            mainLayout.addView(cg);
+//                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+            getSupportActionBar().hide();
+            setContentView(mainLayout);
+            Log.d("game", "Started Advanced game");
         }
     }
 
