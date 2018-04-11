@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             cg = new CatchGame(this, 3, "Jamie", onScoreListener);
             cg.setBackground(getResources().getDrawable(R.drawable.bg_land_mdpi));
             mainLayout.addView(cg);
-//                getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             getSupportActionBar().hide();
             setContentView(mainLayout);
             Log.d("game", "Started Advanced game");
