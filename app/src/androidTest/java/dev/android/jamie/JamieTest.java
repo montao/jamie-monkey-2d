@@ -3,13 +3,13 @@ package dev.android.jamie;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -20,7 +20,7 @@ public class JamieTest {
 
     @Test
     public void useAppContext() throws Exception {
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("dev.android.jamie", appContext.getPackageName());
         try {
             runOnUiThread(new Runnable() {
