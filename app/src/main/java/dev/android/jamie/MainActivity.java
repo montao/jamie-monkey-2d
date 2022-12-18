@@ -11,6 +11,7 @@ import android.os.Handler;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
