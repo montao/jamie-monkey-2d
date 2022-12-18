@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -298,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 resourceIdFalling = R.mipmap.falling_object2;
                 resourceIdFalling2 = R.drawable.coconut_hdpi;
                 resourceIdHero = R.drawable.left_side_hdpi;
-                setBackground(getResources().getDrawable(R.mipmap.background));
+                setBackgroundResource(R.drawable.bg_land_hdpi);
             }
             falling = BitmapFactory.decodeResource(getResources(), resourceIdFalling); //load a falling image
             falling2 = BitmapFactory.decodeResource(getResources(), resourceIdFalling2); //load a falling image
